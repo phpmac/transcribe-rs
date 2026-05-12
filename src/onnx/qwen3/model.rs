@@ -296,15 +296,6 @@ impl Qwen3AsrModel {
         max_tokens: usize,
         language_token_ids: Option<&[i64]>,
     ) -> Result<String, TranscribeError> {
-        const MAX_SAMPLES: usize = 60 * 16_000;
-        if samples.len() > MAX_SAMPLES {
-            return Err(TranscribeError::Inference(format!(
-                "audio too long: {} samples ({:.1} s); maximum is 60 s",
-                samples.len(),
-                samples.len() as f32 / 16_000.0,
-            )));
-        }
-
         let mel = log_mel_spectrogram(samples);
         let mel_frames = mel.shape()[2];
         let audio_tokens = get_feat_extract_output_lengths(mel_frames);
