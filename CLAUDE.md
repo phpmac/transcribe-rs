@@ -10,6 +10,11 @@ Read @AGENTS.md
 - 代码定位优先使用 LSP (定义/引用/符号/大纲)
 - GitHub 仓库信息必须使用 gh 命令, 禁止使用 web reader 爬取 GitHub 页面
 
+## 提交规范
+
+- commit message 必须使用中文, 禁止英文
+- 遵循约定式提交, 使用中文前缀: 添加(新功能)/修复(bug)/重构(代码)/文档(变更)/优化(性能)/测试(用例)/发布(版本)
+
 ## 开发命令
 
 ```bash
@@ -26,9 +31,9 @@ cargo run --example qwen3 --features onnx
 ```
 
 开发别名 (定义在 `.cargo/config.toml`):
-- `cargo check-all` → `cargo check --all-features`
-- `cargo build-all` → `cargo build --all-features`
-- `cargo test-all` → `cargo test --all-features`
+- `cargo check-all` -> `cargo check --all-features`
+- `cargo build-all` -> `cargo build --all-features`
+- `cargo test-all` -> `cargo test --all-features`
 
 测试需要本地模型文件, 模型不存在时测试会跳过.
 
@@ -64,7 +69,7 @@ cargo run --example qwen3 --features onnx
 ### 关键设计模式
 
 - `SpeechModel` trait: `transcribe(&samples, &opts)` + `transcribe_file(&path, &opts)` 统一接口
-- 每个 ONNX 模型内部结构: `engine.rs` (trait impl) → `model.rs` (ONNX 推理) → `mel.rs` (特征提取) → `tokenizer.rs` (解码)
+- 每个 ONNX 模型内部结构: `engine.rs` (trait impl) -> `model.rs` (ONNX 推理) -> `mel.rs` (特征提取) -> `tokenizer.rs` (解码)
 - GPU 加速通过全局原子变量 (`accel` 模块) 控制, 在加载模型前设置
 - `Quantization` enum 控制加载 Int8/Int4/FP16/FP32 模型文件变体
 
